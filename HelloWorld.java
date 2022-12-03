@@ -2,6 +2,7 @@
 import java.util.*;
 import java.lang.*;
 
+
 class Planet{
     public String name;
     public List<String> surfaceGasses = new ArrayList<String>();
@@ -43,7 +44,7 @@ class SolarSystem{
         return count;
     }
     
-    public String getGasFoundMaximumPlanets(List<Planet> planets){
+    public List<String> getGasFoundMaximumPlanets(List<Planet> planets){
         HashMap<String, Integer> freq = new HashMap<String, Integer>();
         for(Planet p: planets){
             List<String> t = p.getSurfaceGasses();
@@ -57,7 +58,14 @@ class SolarSystem{
                 }
             }
         }
-        return Collections.max(freq.entrySet(), (entry1, entry2) -> entry1.getValue() - entry2.getValue()).getKey();
+        int max = Collections.max(freq.values());
+        List<String> keys = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : freq.entrySet()) {
+            if (entry.getValue()==max) {
+                keys.add(entry.getKey());
+            }
+        }
+        return keys;
     }
 }
 
